@@ -32,7 +32,6 @@ const Signup = () => {
     //pass the fields as an object
     signUpUser({ name, email, password })
       .then((data) => {
-        console.log(data);
         if (data && data.error) {
           setSuccess(false);
           setError(data.error);
