@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../core/Layout";
 import { Link } from "react-router-dom";
+import { signUpUser } from "../auth/Index";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -8,24 +9,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-
-  const signUpUser = async (user) => {
-    //user gets and object of name, email and password
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/signup`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const submitForm = (e) => {
     e.preventDefault();

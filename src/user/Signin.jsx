@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../core/Layout";
 import { Navigate } from "react-router-dom";
+import { signInUser, authenticateUser, isAuthenticated } from "../auth/Index";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -9,23 +10,7 @@ const Signin = () => {
   const [loading, setLoading] = useState(false);
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
 
-  const signInUser = async (user) => {
-    //user gets and object of name, email and password
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/signin`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { user } = isAuthenticated();
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -38,9 +23,10 @@ const Signin = () => {
           setRedirectToReferrer(false);
           setError(data.error);
         } else {
-          setLoading(false);
-          setRedirectToReferrer(true);
-          localStorage.setItem("user", JSON.stringify(data));
+          authenticateUser(data, () => {
+            setLoading(false);
+            setRedirectToReferrer(true);
+          });
         }
       })
       .catch((err) => {
@@ -113,7 +99,14 @@ const Signin = () => {
 
   const redirectUser = () => {
     if (redirectToReferrer) {
-      return <Navigate to="/" />;
+      if (user && user.role === 1) {
+        return <Navigate to="/admin/dashboard" />;
+      } else {
+        return <Navigate to="/user/dashboard" />;
+      }
+    }
+    if(user){
+      return <Navigate to='/' />
     }
   };
   return (

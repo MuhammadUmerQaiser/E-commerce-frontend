@@ -1,9 +1,11 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { signout, isAuthenticated } from "../auth/Index";
 
 const Menu = () => {
   // to change the color of menu if it is on that page
   const location = useLocation();
+  const navigate = useNavigate();
   const isActive = (path) => {
     if (location.pathname === path) {
       return { color: "#ff9900" };
@@ -19,16 +21,65 @@ const Menu = () => {
             Home
           </Link>
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/signin" style={isActive("/signin")}>
-            Signin
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/signup" style={isActive("/signup")}>
-            Signup
-          </Link>
-        </li>
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to="/user/dashboard"
+              style={isActive("/user/dashboard")}
+            >
+              Dashbaord
+            </Link>
+          </li>
+        )}
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              to="/admin/dashboard"
+              style={isActive("/admin/dashboard")}
+            >
+              Dashbaord
+            </Link>
+          </li>
+        )}
+        {!isAuthenticated() && (
+          <>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/signin"
+                style={isActive("/signin")}
+              >
+                Signin
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/signup"
+                style={isActive("/signup")}
+              >
+                Signup
+              </Link>
+            </li>
+          </>
+        )}
+        {isAuthenticated() && (
+          <li className="nav-item">
+            <span
+              className="nav-link"
+              onClick={() => {
+                signout(() => {
+                  navigate("/signin");
+                });
+              }}
+              style={{ cursor: "pointer", color: "#ffffff" }}
+            >
+              Signout
+            </span>
+          </li>
+        )}
       </ul>
     </div>
   );
