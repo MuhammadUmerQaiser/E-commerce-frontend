@@ -1,7 +1,7 @@
 export const getProducts = async (sortBy) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/products?sortBy=${sortBy}&order=desc&limit=3`,
+      `${process.env.REACT_APP_API_URL}/products?sortBy=${sortBy}&order=desc&limit=6`,
       {
         method: "GET",
       }
