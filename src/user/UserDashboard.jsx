@@ -52,7 +52,7 @@ const UserDashboard = () => {
   return (
     <Layout
       title="Dashboard"
-      description={`G'Day ${name}`}
+      description={`G'Day ${name}!`}
       className="container-fluid"
     >
         <div className="row">
