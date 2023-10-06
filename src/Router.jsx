@@ -6,6 +6,7 @@ import Home from "./core/Home";
 import UserDashboard from "./user/UserDashboard";
 import AdminDashboard from "./admin/AdminDashboard";
 import CreateCategory from "./admin/category/CreateCategory";
+import CreateProduct from "./admin/product/CreateProduct";
 import PrivateRoute from "./auth/PrivateRoute";
 import AdminRoute from "./auth/AdminRoute";
 
@@ -24,6 +25,9 @@ const Router = () => {
         </Route>
         <Route path="/admin/create/category" exact Component={AdminRoute}>
           <Route path="/admin/create/category" exact Component={CreateCategory} />
+        </Route>
+        <Route path="/admin/create/product" exact Component={AdminRoute}>
+          <Route path="/admin/create/product" exact Component={CreateProduct} />
         </Route>
       </Routes>
     </BrowserRouter>
