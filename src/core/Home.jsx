@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
 import { getProducts } from "./ApiCore";
 import Card from "../components/Card";
+import SearchBar from "../components/SearchBar";
 import "../style.css";
 
 export default function Home() {
@@ -39,6 +40,7 @@ export default function Home() {
       description="Node React E-commerce Home Page"
       className="container-fluid"
     >
+      <SearchBar />
       <h2 className="mb-4">New Arrivals</h2>
       <div className="row">
         {productsByArrival.map((product, i) => {
