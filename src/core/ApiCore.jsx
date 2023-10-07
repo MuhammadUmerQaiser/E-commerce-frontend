@@ -55,3 +55,33 @@ export const listSearchProducts = async (params) => {
     console.log(error);
   }
 };
+
+export const getSingleProduct = async (productId) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/product/${productId}`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getRelatedProduct = async (productId) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/products/related/${productId}`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

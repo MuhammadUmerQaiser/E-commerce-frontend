@@ -4,6 +4,7 @@ import Signin from "./user/Signin";
 import Signup from "./user/Signup";
 import Home from "./core/Home";
 import Shop from "./core/Shop";
+import Product from "./core/Product";
 import UserDashboard from "./user/UserDashboard";
 import AdminDashboard from "./admin/AdminDashboard";
 import CreateCategory from "./admin/category/CreateCategory";
@@ -19,6 +20,7 @@ const Router = () => {
         <Route path="/signin" exact Component={Signin} />
         <Route path="/signup" exact Component={Signup} />
         <Route path="/shop" exact Component={Shop} />
+        <Route path="/product/:productId" exact Component={Product} />
         <Route path="/user/dashboard" exact Component={PrivateRoute}>
           <Route path="/user/dashboard" exact Component={UserDashboard} />
         </Route>
@@ -26,7 +28,11 @@ const Router = () => {
           <Route path="/admin/dashboard" exact Component={AdminDashboard} />
         </Route>
         <Route path="/admin/create/category" exact Component={AdminRoute}>
-          <Route path="/admin/create/category" exact Component={CreateCategory} />
+          <Route
+            path="/admin/create/category"
+            exact
+            Component={CreateCategory}
+          />
         </Route>
         <Route path="/admin/create/product" exact Component={AdminRoute}>
           <Route path="/admin/create/product" exact Component={CreateProduct} />
