@@ -79,3 +79,12 @@ export const totalAmountOfCart = () => {
     return totalAmount;
   }
 };
+
+export const emptyCartAfterPayment = (next) => {
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("cart")) {
+      localStorage.removeItem("cart");
+      next();
+    }
+  }
+};

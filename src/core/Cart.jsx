@@ -58,9 +58,11 @@ const Cart = () => {
     return (
       <div className="text-center">
         {isAuthenticated() ? (
-          <button className="btn btn-outline-primary">
-            Proceed to Checkout
-          </button>
+          <Link to="/checkout">
+            <button className="btn btn-outline-primary">
+              Proceed to Checkout
+            </button>
+          </Link>
         ) : (
           <Link to="/signin">
             <button className="btn btn-outline-success">
@@ -79,7 +81,7 @@ const Cart = () => {
     >
       <div className="container mt-5 mb-5">
         {cartItems.length > 0 ? showCartItems() : noItemMessage()}
-        {cartItems.length > 0 ? showCheckoutButton() : ''}
+        {cartItems.length > 0 ? showCheckoutButton() : ""}
       </div>
     </Layout>
   );
