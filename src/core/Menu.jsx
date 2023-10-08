@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { signout, isAuthenticated } from "../auth/Index";
+import { totalItemsInCart } from "../helpers/CartHelper";
+import { BsFillCartFill } from "react-icons/bs";
 
 const Menu = () => {
   // to change the color of menu if it is on that page
@@ -11,7 +13,7 @@ const Menu = () => {
       return { color: "#ff9900" };
     } else {
       return { color: "#ffffff" };
-    }
+    } 
   };
   return (
     <div>
@@ -24,6 +26,14 @@ const Menu = () => {
         <li className="nav-item">
           <Link className="nav-link" to="/shop" style={isActive("/shop")}>
             Shop
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/cart" style={isActive("/cart")}>
+            <BsFillCartFill />{" "}
+            <sup>
+              <small className="cart-badge">{totalItemsInCart()}</small>
+            </sup>
           </Link>
         </li>
         {isAuthenticated() && isAuthenticated().user.role === 0 && (

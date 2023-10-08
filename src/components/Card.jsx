@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Image from "./Image";
+import AddToCartButton from "./AddToCartButton";
 
 const Card = ({ product }) => {
   return (
@@ -16,9 +17,7 @@ const Card = ({ product }) => {
               View Product
             </button>
           </Link>
-          <button className="btn btn-outline-warning mt-2 mb-2 ml-2">
-            Add to Cart
-          </button>
+          <AddToCartButton className="btn btn-outline-warning mt-2 mb-2 ml-2" product={product} />
         </div>
       </div>
     </div>

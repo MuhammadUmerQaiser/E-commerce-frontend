@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import AddToCartButton from "./AddToCartButton";
 
 const ViewProduct = ({ product }) => {
   const showStock = (quantity) => {
@@ -36,7 +37,7 @@ const ViewProduct = ({ product }) => {
                 </p>
                 {showStock(product.quantity)}
                 <br />
-                <button className="btn btn-warning">Add to Cart</button>
+                <AddToCartButton className="btn btn-warning" product={product} />
               </div>
             </div>
           </div>
