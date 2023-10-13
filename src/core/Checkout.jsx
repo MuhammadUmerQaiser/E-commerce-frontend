@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { isAuthenticated } from "../auth/Index";
-import { getBraintreeClientToken, processPaymentForProduct } from "./ApiCore";
+import {
+  getBraintreeClientToken,
+  processPaymentForProduct,
+  createOrder,
+} from "./ApiCore";
 import {
   totalAmountOfCart,
   emptyCartAfterPayment,
+  getCartItems,
 } from "../helpers/CartHelper";
 import DropIn from "braintree-web-drop-in-react";
 import Layout from "./Layout";
 import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
+  const [products, setProducts] = useState([]);
   const [data, setData] = useState({
     success: false,
     loading: false,
@@ -38,6 +44,7 @@ const Checkout = () => {
 
   useEffect(() => {
     getClientToken(userId, token);
+    setProducts(getCartItems());
   }, []);
 
   //from client token i create payemnt form which will generate the instance from that
@@ -57,6 +64,8 @@ const Checkout = () => {
         processPaymentForProduct(userId, token, paymentData)
           .then((res) => {
             setData({ ...data, success: res.success });
+            //after payment first process order then remove item from cart
+            processOrderForTheProduct(res);
             emptyCartAfterPayment(() => {
               console.log("done");
               setData({ ...data, loading: false });
@@ -69,11 +78,39 @@ const Checkout = () => {
       });
   };
 
+  const processOrderForTheProduct = (response) => {
+    const orderData = {
+      products: products,
+      transaction_id: response.transaction.id,
+      amount: response.transaction.amount,
+      address: data.address,
+    };
+    createOrder(userId, token, orderData)
+      .then((res) => {})
+      .catch((err) => {
+        setData({ loading: false });
+      });
+  };
+
+  const handleAddress = (event) => {
+    setData({ ...data, address: event.target.value });
+  };
+
   const showDropIn = () => {
     return (
       <div onBlur={() => setData({ ...data, error: "" })}>
         {data.clientToken !== null ? (
           <div>
+            <div className="form-group mb-3">
+              <label className="text-muted">Delievery Address:</label>
+              <textarea
+                className="form-control"
+                value={data.address}
+                placeholder="Type your delievery address here"
+                onChange={handleAddress}
+              />
+            </div>
+            <hr />
             <DropIn
               options={{
                 authorization: data.clientToken,

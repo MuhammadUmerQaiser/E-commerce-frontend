@@ -3,7 +3,7 @@ import Layout from "./Layout";
 import { getProducts } from "./ApiCore";
 import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
-import "../style.css";
+import "../css/style.css";
 
 export default function Home() {
   const [productsBySell, setProductsBySell] = useState([]);
