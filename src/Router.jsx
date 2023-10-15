@@ -11,6 +11,8 @@ import UserDashboard from "./user/UserDashboard";
 import AdminDashboard from "./admin/AdminDashboard";
 import CreateCategory from "./admin/category/CreateCategory";
 import CreateProduct from "./admin/product/CreateProduct";
+import AdminOrders from "./admin/order/AdminOrders";
+import AdminOrderDetails from "./admin/order/AdminOrderDetails";
 import PrivateRoute from "./auth/PrivateRoute";
 import AdminRoute from "./auth/AdminRoute";
 import ThankYou from "./core/ThankYou";
@@ -25,7 +27,7 @@ const Router = () => {
         <Route path="/shop" exact Component={Shop} />
         <Route path="/cart" exact Component={Cart} />
         <Route path="/checkout" exact Component={Checkout} />
-        <Route path="/thank-you" exact Component={ThankYou} />
+        <Route path="/thank-you/:orderId" exact Component={ThankYou} />
         <Route path="/product/:productId" exact Component={Product} />
         <Route path="/user/dashboard" exact Component={PrivateRoute}>
           <Route path="/user/dashboard" exact Component={UserDashboard} />
@@ -39,6 +41,12 @@ const Router = () => {
             exact
             Component={CreateCategory}
           />
+        </Route>
+        <Route path="/admin/orders" exact Component={AdminRoute}>
+          <Route path="/admin/orders" exact Component={AdminOrders} />
+        </Route>
+        <Route path="/admin/order/details/:orderId" exact Component={AdminRoute}>
+          <Route path="/admin/order/details/:orderId" exact Component={AdminOrderDetails} />
         </Route>
         <Route path="/admin/create/product" exact Component={AdminRoute}>
           <Route path="/admin/create/product" exact Component={CreateProduct} />

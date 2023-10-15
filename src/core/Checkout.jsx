@@ -65,11 +65,7 @@ const Checkout = () => {
           .then((res) => {
             setData({ ...data, success: res.success });
             //after payment first process order then remove item from cart
-            processOrderForTheProduct(res);
-            emptyCartAfterPayment(() => {
-              console.log("done");
-              setData({ ...data, loading: false });
-            });
+            processOrderForTheProductAndEmptyTheCartItem(res);
           })
           .catch((err) => console.log(err));
       })
@@ -78,7 +74,7 @@ const Checkout = () => {
       });
   };
 
-  const processOrderForTheProduct = (response) => {
+  const processOrderForTheProductAndEmptyTheCartItem = (response) => {
     const orderData = {
       products: products,
       transaction_id: response.transaction.id,
@@ -86,7 +82,12 @@ const Checkout = () => {
       address: data.address,
     };
     createOrder(userId, token, orderData)
-      .then((res) => {})
+      .then((res) => {
+        emptyCartAfterPayment(() => {
+          navigate(`/thank-you/${res._id}`)
+          setData({ ...data, loading: false });
+        });
+      })
       .catch((err) => {
         setData({ loading: false });
       });

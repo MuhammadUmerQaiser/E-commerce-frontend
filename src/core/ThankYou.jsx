@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import thankyou from "../assets/thankyou.jpg";
 import "../css/thankyou.css";
 
 const ThankYou = () => {
+  const params = useParams();
   return (
     <div className="thank-you-page">
       <div className="content-container">
@@ -15,7 +16,8 @@ const ThankYou = () => {
             <div className="card-body">
               <p>Your order has been successfully placed.</p>
               <p>
-                Order Number: <span className="order-number">#123456</span>
+                Order Number:{" "}
+                <span className="order-number">#{params.orderId}</span>
               </p>
               <p>Your items will be shipped shortly.</p>
               <h2>What's Next?</h2>
