@@ -29,13 +29,24 @@ const AdminDashboard = () => {
         <h3 className="card-header">User Links</h3>
         <ul className="list-group">
           <li className="list-group-item">
-            <Link className="nav-link" to='/admin/create/category'>Create Category</Link>
+            <Link className="nav-link" to="/admin/create/category">
+              Create Category
+            </Link>
           </li>
           <li className="list-group-item">
-            <Link className="nav-link" to='/admin/create/product'>Create Product</Link>
+            <Link className="nav-link" to="/admin/create/product">
+              Create Product
+            </Link>
           </li>
           <li className="list-group-item">
-            <Link className="nav-link" to='/admin/orders'>Orders</Link>
+            <Link className="nav-link" to="/admin/orders">
+              Orders
+            </Link>
+          </li>
+          <li className="list-group-item">
+            <Link className="nav-link" to={`/user/profile/${_id}`}>
+              Update Profile
+            </Link>
           </li>
         </ul>
       </div>
@@ -47,12 +58,10 @@ const AdminDashboard = () => {
       description={`G'Day ${name}!`}
       className="container-fluid"
     >
-        <div className="row">
-            <div className="col-md-3">{adminLinks()}</div>
-            <div className="col-md-9">
-                {adminInfo()}
-            </div>
-        </div>
+      <div className="row">
+        <div className="col-md-3">{adminLinks()}</div>
+        <div className="col-md-9">{adminInfo()}</div>
+      </div>
     </Layout>
   );
 };

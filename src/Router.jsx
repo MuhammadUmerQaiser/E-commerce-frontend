@@ -8,6 +8,7 @@ import Cart from "./core/Cart";
 import Product from "./core/Product";
 import Checkout from "./core/Checkout";
 import UserDashboard from "./user/UserDashboard";
+import Profile from "./user/Profile";
 import AdminDashboard from "./admin/AdminDashboard";
 import CreateCategory from "./admin/category/CreateCategory";
 import CreateProduct from "./admin/product/CreateProduct";
@@ -26,7 +27,9 @@ const Router = () => {
         <Route path="/signup" exact Component={Signup} />
         <Route path="/shop" exact Component={Shop} />
         <Route path="/cart" exact Component={Cart} />
-        <Route path="/checkout" exact Component={Checkout} />
+        <Route path="/checkout" exact Component={PrivateRoute}>
+          <Route path="/checkout" exact Component={Checkout} />
+        </Route>
         <Route path="/thank-you/:orderId" exact Component={ThankYou} />
         <Route path="/product/:productId" exact Component={Product} />
         <Route path="/user/dashboard" exact Component={PrivateRoute}>
@@ -50,6 +53,9 @@ const Router = () => {
         </Route>
         <Route path="/admin/create/product" exact Component={AdminRoute}>
           <Route path="/admin/create/product" exact Component={CreateProduct} />
+        </Route>
+        <Route path="/user/profile/:userId" exact Component={PrivateRoute}>
+          <Route path="/user/profile/:userId" exact Component={Profile} />
         </Route>
       </Routes>
     </BrowserRouter>
