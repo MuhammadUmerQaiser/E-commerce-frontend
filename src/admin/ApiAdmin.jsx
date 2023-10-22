@@ -131,3 +131,75 @@ export const updateOrderStatus = async (userId, token, orderId, status) => {
     console.log(error);
   }
 };
+
+export const getAllProductsList = async () => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/products?limit=undefined`, {
+      method: "GET",
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteProduct = async (productId, userId, token) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/product/${productId}/${userId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getSingleProductById = async (productId) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/product/${productId}`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProductDetail = async (
+  productId,
+  userId,
+  token,
+  product
+) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/product/${productId}/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: product,
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
